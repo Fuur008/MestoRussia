@@ -16,3 +16,17 @@
         justify-content: space-between;
     }
 }
+@media screen and (max-width: 844px) {
+    .elements {
+        grid-template-columns: repeat(3, minmax(200px, 236px));
+        gap: 20px 15px;
+    }
+}
+
+@media screen and (max-width: 660px) {
+    .elements {
+        grid-template-columns: 282px;
+        gap: 20px;
+        justify-content: center;
+    }
+}

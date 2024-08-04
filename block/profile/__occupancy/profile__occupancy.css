@@ -6,3 +6,11 @@
     grid-column: span 2;
     order: 3;
 }
+@media screen and (max-width: 660px) {
+    .profile__occupancy {
+        font-size: 14px;
+        line-height: 16px;
+        text-align: center;
+        grid-column: span 1;
+    }
+}

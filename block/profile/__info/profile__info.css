@@ -7,3 +7,12 @@
     gap: 16px 18px;
     align-items: center;
 }
+
+@media screen and (max-width: 660px) {
+    .profile__info {
+        grid-template-columns: 198px min-content;
+        min-width: 282px;
+        gap: 14px 10px;
+        justify-content: center;
+    }
+}

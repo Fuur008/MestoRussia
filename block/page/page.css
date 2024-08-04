@@ -27,3 +27,9 @@
     position: relative;
     z-index: 1;
 }
+
+@media screen and (max-width: 660px) {
+    .page{
+        padding: 28px 0 36px;
+    }
+}

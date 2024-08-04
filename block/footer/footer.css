@@ -4,3 +4,9 @@
     max-height: 18px;
     box-sizing: border-box;
 }
+
+@media screen and (max-width: 660px) {
+    .footer{
+        max-height: 14px;
+    }
+}

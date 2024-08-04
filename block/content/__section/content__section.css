@@ -8,4 +8,16 @@
     }
 }
 
+@media screen and (max-width: 844px) {
+    .content__section {
+        padding: 0 15px;
+    }
+}
+
+@media screen and (max-width: 660px) {
+    .content__section {
+        padding: 0 19px;
+    }
+}
+
 

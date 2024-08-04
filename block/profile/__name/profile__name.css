@@ -8,3 +8,12 @@
     margin: 0;
     order: 1;
 }
+
+@media screen and (max-width: 660px) {
+    .profile__name {
+        font-size: 28px;
+        line-height: 30px;
+        margin-top: 26px;
+        text-align: center;
+    }
+}

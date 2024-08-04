@@ -1,6 +1,6 @@
 .header__logo {
     width: 100%;
-    min-height: 33px;
+    height: 33px;
     box-sizing: border-box;
     position: relative;
     background-image: url(../../../image/logo.svg);
@@ -16,4 +16,15 @@
     bottom: -41px;
     background-color: #545454;
     height: 1px;
+}
+@media screen and (max-width: 660px) {
+    .header__logo {
+        transform: translateX(27px);
+        max-height: 25px;
+        background-image: url(../../../image/logo_small.svg);
+    }
+    .header__logo::after{
+        left: -27px;
+        bottom: -32px;
+    }
 }

@@ -1,5 +1,11 @@
 .header {
     min-width: 100%;
-    min-height: 74px;
+    height: 74px;
     box-sizing: border-box;
+}
+
+@media screen and (max-width: 660px) {
+    .header {
+        max-height: 56px;
+    }
 }

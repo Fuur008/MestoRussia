@@ -8,3 +8,9 @@
     overflow: hidden;
     margin: 0;
 }
+
+@media screen and (max-width: 844px) {
+    .element__place-name {
+        font-size: 18px;
+    }
+}
