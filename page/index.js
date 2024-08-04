@@ -11,6 +11,7 @@ let userOccupancyInput = document.querySelector("#user_occupancy");
 profileEditButton.addEventListener("click", function () {
   openPopup(popup);
 });
+
 popupCloseButton.addEventListener("click", function () {
   closePopup(popup);
 });
