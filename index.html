@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Путешествия по России</title>
+  <link rel="shortcut icon" href="#" type="image/x-icon">
+  <link rel="stylesheet" href="./page/index.css">
+  <script src="./page/index.js" defer></script>
+</head>
+<body class="page">
+
+  <header class="header page__header">
+   <div class="header__logo"></div>
+  </header>
+
+  <main class="content page__content">
+
+    <section class="profile content__section">
+      <img src="./image/kusto.jpg" alt="Аватар" class="profile__avatar">
+      <div class="profile__info">
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <p class="profile__occupancy">Исследователь океана</p>
+        <button class="profile__edit-button">
+          <span class="visually-hidden">Кнопкка редактирования профиля</span>
+        </button>
+      </div>
+      <button class="profile__add-button">
+        <span class="visually-hidden">Кнопка добавления карточки</span>
+      </button>
+    </section>
+
+    <section class="elements content__section" aria-label="Локации России">
+      <div class="element">
+        <img src="./image/nizhny.jpg" alt="Нижний Новгород" class="element__image">
+        <div class="element__container">
+          <p class="element__place-name">Столица закатов</p>
+          <button class="element__like-button">
+            <span class="visually-hidden">Кнопка Лайк</span>
+          </button>
+        </div>
+      </div>
+      <div class="element">
+        <img src="./image/moscow.jpg" alt="Москва" class="element__image">
+        <div class="element__container">
+          <p class="element__place-name">Москва</p>
+          <button class="element__like-button">
+            <span class="visually-hidden">Кнопка Лайк</span>
+          </button>
+        </div>
+      </div>
+      <div class="element">
+        <img src="./image/piter.jpeg" alt="Питер" class="element__image">
+        <div class="element__container">
+          <p class="element__place-name">Санкт-Петербург</p>
+          <button class="element__like-button">
+            <span class="visually-hidden">Кнопка Лайк</span>
+          </button>
+        </div>
+      </div>
+      <div class="element">
+        <img src="./image/karachaevsk.jpg" alt="Карачаевск" class="element__image">
+        <div class="element__container">
+          <p class="element__place-name">Карачаево-Черкесия</p>
+          <button class="element__like-button">
+            <span class="visually-hidden">Кнопка Лайк</span>
+          </button>
+        </div>
+      </div>
+      <div class="element">
+        <img src="./image/elbrus.jpg" alt="Ельбрус" class="element__image">
+        <div class="element__container">
+          <p class="element__place-name">Гора Эльбрус</p>
+          <button class="element__like-button">
+            <span class="visually-hidden">Кнопка Лайк</span>
+          </button>
+        </div>
+      </div>
+      <div class="element">
+        <img src="./image/dombai.jpg" alt="Домбай" class="element__image">
+        <div class="element__container">
+          <p class="element__place-name">Домбай</p>
+          <button class="element__like-button">
+            <span class="visually-hidden">Кнопка Лайк</span>
+          </button>
+        </div>
+      </div>
+      
+    </section>
+    
+  </main>
+
+  <footer class="footer page__footer">
+    <p class="footer__copyright">© 2024 Mesto Russia</p>
+  </footer>
+
+  <div class="popup">
+    <form action="" name="profile_edit" class="popup__form">
+      <button class="popup__close-button">
+        <span class="visually-hidden">Кнопка закрытия формы</span>
+      </button>
+      <h2 class="popup__header">Редактировать профиль</h2>
+      <input type="text" name="user_name" class="popup__input" placeholder="Имя" id="user_name">
+      <input type="text" name="user_occupancy" class="popup__input" placeholder="Занятие" id="user_occupancy">
+      <button class="popup__save-button">
+        <span class="visually-hidden">Кнопка сохранения формы</span>
+        Сохранить
+      </button>
+    </form>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+.header__logo {
+    width: 100%;
+    min-height: 33px;
+    box-sizing: border-box;
+    position: relative;
+    background-image: url(../../../image/logo.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.header__logo::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -41px;
+    background-color: #545454;
+    height: 1px;
+}
