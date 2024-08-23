@@ -1,0 +1,14 @@
+.popup__form_profile-image {
+    width: 430px;
+    height: 280px;
+    padding: 34px 36px 37px;
+
+}
+
+@media screen and (max-width: 660px) {
+    .popup__form_profile-image {
+        width: 282px;
+        height: 282px;
+        padding: 25px 22px;
+    }
+}

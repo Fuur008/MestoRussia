@@ -1,0 +1,9 @@
+.popup__container {
+    position: relative;
+}
+
+@media screen and (max-width: 660px) {
+    .popup__container{
+        transform: translateX(-13px);
+    }
+}
