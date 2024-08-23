@@ -17,7 +17,9 @@
   <main class="content page__content">
 
     <section class="profile content__section">
-      <img src="./image/kusto.jpg" alt="Аватар" class="profile__avatar">
+       <button class="profile__image-button">
+        <span class="visually-hidden">Кнопка редактирования аватара</span>
+       </button>
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <p class="profile__occupancy">Исследователь океана</p>
@@ -31,61 +33,23 @@
     </section>
 
     <section class="elements content__section" aria-label="Локации России">
+
+      <template class="template__card">
       <div class="element">
-        <img src="./image/nizhny.jpg" alt="Нижний Новгород" class="element__image">
+        <img src="#" alt="#" class="element__image">
+        <button class="element__delete-button">
+          <span class="visually-hidden">Кнопка удаления карточки</span>
+        </button>
         <div class="element__container">
-          <p class="element__place-name">Столица закатов</p>
+          <p class="element__place-name"></p>
           <button class="element__like-button">
             <span class="visually-hidden">Кнопка Лайк</span>
           </button>
+          <span class="element__likes"></span>
         </div>
       </div>
-      <div class="element">
-        <img src="./image/moscow.jpg" alt="Москва" class="element__image">
-        <div class="element__container">
-          <p class="element__place-name">Москва</p>
-          <button class="element__like-button">
-            <span class="visually-hidden">Кнопка Лайк</span>
-          </button>
-        </div>
-      </div>
-      <div class="element">
-        <img src="./image/piter.jpeg" alt="Питер" class="element__image">
-        <div class="element__container">
-          <p class="element__place-name">Санкт-Петербург</p>
-          <button class="element__like-button">
-            <span class="visually-hidden">Кнопка Лайк</span>
-          </button>
-        </div>
-      </div>
-      <div class="element">
-        <img src="./image/karachaevsk.jpg" alt="Карачаевск" class="element__image">
-        <div class="element__container">
-          <p class="element__place-name">Карачаево-Черкесия</p>
-          <button class="element__like-button">
-            <span class="visually-hidden">Кнопка Лайк</span>
-          </button>
-        </div>
-      </div>
-      <div class="element">
-        <img src="./image/elbrus.jpg" alt="Ельбрус" class="element__image">
-        <div class="element__container">
-          <p class="element__place-name">Гора Эльбрус</p>
-          <button class="element__like-button">
-            <span class="visually-hidden">Кнопка Лайк</span>
-          </button>
-        </div>
-      </div>
-      <div class="element">
-        <img src="./image/dombai.jpg" alt="Домбай" class="element__image">
-        <div class="element__container">
-          <p class="element__place-name">Домбай</p>
-          <button class="element__like-button">
-            <span class="visually-hidden">Кнопка Лайк</span>
-          </button>
-        </div>
-      </div>
-      
+    </template>
+
     </section>
     
   </main>
@@ -94,19 +58,64 @@
     <p class="footer__copyright">© 2024 Mesto Russia</p>
   </footer>
 
-  <div class="popup">
-    <form action="" name="profile_edit" class="popup__form">
-      <button class="popup__close-button">
-        <span class="visually-hidden">Кнопка закрытия формы</span>
-      </button>
+  <div class="popup popup__edit-profile">
+    <div class="popup__container">
+    <button class="popup__close-button">
+      <span class="visually-hidden">Кнопка закрытия формы</span>
+    </button>
+    <form name="profile_edit" class="popup__form popup__form_profile">
       <h2 class="popup__header">Редактировать профиль</h2>
-      <input type="text" name="user_name" class="popup__input" placeholder="Имя" id="user_name">
-      <input type="text" name="user_occupancy" class="popup__input" placeholder="Занятие" id="user_occupancy">
+      <input type="text" name="user_name" class="popup__input popup__input-name" placeholder="Имя">
+      <input type="text" name="user_occupancy" class="popup__input popup__input-occupancy" placeholder="Занятие">
       <button class="popup__save-button">
         <span class="visually-hidden">Кнопка сохранения формы</span>
         Сохранить
       </button>
     </form>
+  </div>
+  </div>
+
+  <div class="popup popup__edit-profile_image">
+    <div class="popup__container">
+    <button class="popup__close-button">
+      <span class="visually-hidden">Кнопка закрытия формы</span>
+    </button>
+    <form name="profile_edit-image" class="popup__form popup__form_profile-image">
+      <h2 class="popup__header">Редактировать аватар</h2>
+      <input type="text" name="user_name" class="popup__input popup__input-address" placeholder="Адрес изображения">
+      <button class="popup__save-button">
+        <span class="visually-hidden">Кнопка сохранения формы</span>
+        Сохранить
+      </button>
+    </form>
+  </div>
+  </div>
+
+  <div class="popup popup__full-image">
+    <div class="popup__container">
+    <button class="popup__close-button">
+      <span class="visually-hidden">Кнопка закрытия Изображения</span>
+    </button>
+    <img src="#" alt="#" class="popup__image"></img>
+    <h2 class="popup__heading"></h2>
+  </div>
+  </div>
+
+  <div class="popup popup__add-card">
+    <div class="popup__container">
+    <button class="popup__close-button">
+      <span class="visually-hidden">Кнопка закрытия формы</span>
+    </button>
+    <form name="add_card" class="popup__form popup__form_add-card">
+      <h2 class="popup__header">Добавить место</h2>
+      <input type="text" name="user_name" class="popup__input popup__input-address" placeholder="Адрес изображения">
+      <input type="text" name="user_occupancy" class="popup__input popup__input-heading" placeholder="Заголовок">
+      <button class="popup__save-button">
+        <span class="visually-hidden">Кнопка сохранения формы</span>
+        Сохранить
+      </button>
+    </form>
+  </div>
   </div>
 
 </body>
