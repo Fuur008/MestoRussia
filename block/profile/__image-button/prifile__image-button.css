@@ -2,7 +2,7 @@
     width: 120px;
     height: 120px;
     background-image: url(../../../image/kusto.jpg);
-    background-size: contain;
+    background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     border-radius: 50%;

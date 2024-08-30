@@ -6,11 +6,18 @@
     background-image: url(../../../image/like.svg);
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: auto;
+    background-size: contain;
     transition: 0.3s;
     margin-left: auto;
 }
 .element__like-button:hover {
     opacity: 0.5;
     cursor: pointer;
+}
+
+@media screen and (max-width: 660px) {
+    .element__like-button {
+        min-width: 20px;
+        height: 17px;
+    }
 }

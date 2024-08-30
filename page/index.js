@@ -20,9 +20,9 @@ const popupEditProfileCloseButton = popupEditProfile.querySelector(
   ".popup__close-button"
 );
 const formEditProfile = popupEditProfile.querySelector(".popup__form");
-const userNameInput = popupEditProfile.querySelector(".popup__input-name");
+const userNameInput = popupEditProfile.querySelector(".popup__input_name");
 const userOccupancyInput = popupEditProfile.querySelector(
-  ".popup__input-occupancy"
+  ".popup__input_occupancy"
 );
 const cards = document.querySelector(".elements");
 const popupImage = document.querySelector(".popup__full-image");
@@ -38,6 +38,8 @@ const inputAddressFormAddCard = formAddCard.querySelector(
 const inputHeadingFormAddCard = formAddCard.querySelector(
   ".popup__input-heading"
 );
+const popupClose = document.querySelector(".popup");
+const cardsArr = [];
 
 function openPopup(edidPopup) {
   edidPopup.classList.add("popup_opened");
@@ -67,6 +69,7 @@ popupEditProfileImageCloseButton.addEventListener("click", function () {
 popupAddCardCloseButton.addEventListener("click", function () {
   closePopup(popupAddCard);
 });
+
 userNameInput.value = profileName.textContent;
 userOccupancyInput.value = profileOccupancy.textContent;
 
@@ -78,16 +81,40 @@ function formEditProfileSubmitHandler(evt) {
   profileName.textContent = valueUserName;
   profileOccupancy.textContent = valueUserOccupancy;
   closePopup(popupEditProfile);
+  userNameInput.value = "";
+  userOccupancyInput.value = "";
 }
 
 formEditProfile.addEventListener("submit", formEditProfileSubmitHandler);
-
+const imageAddProfileButton =
+  popupEditProfileImage.querySelector(".popup__input-file");
+imageAddProfileButton.addEventListener("change", () => {
+  let file = imageAddProfileButton.files[0];
+  imageAddressInput.value = file.name;
+});
 function formEditProfileImageSubmitHandler(evt) {
   evt.preventDefault();
-
+  const imageValue =
+    popupEditProfileImage.querySelector(".popup__input-file").files[0];
   const profileImage = imageAddressInput.value;
+  const reader = new FileReader();
 
-  imageEditButton.style.backgroundImage = `url(${profileImage})`;
+  if (profileImage.includes("http")) {
+    imageEditButton.style.backgroundImage = `url(${profileImage})`;
+  } else {
+    reader.addEventListener(
+      "load",
+      () => {
+        // convert image file to base64 string
+        imageEditButton.style.backgroundImage = `url(${reader.result})`;
+      },
+      false
+    );
+
+    if (imageValue) {
+      reader.readAsDataURL(imageValue);
+    }
+  }
   closePopup(popupEditProfileImage);
   imageAddressInput.value = "";
 }
@@ -167,6 +194,12 @@ function createCard(card) {
   popupCloseImageButton.addEventListener("click", () => {
     closePopup(popupImage);
   });
+  popupImage.onclick = function (e) {
+    const target = e.target.classList.contains("popup");
+    if (target === true) {
+      closePopup(popupImage);
+    }
+  };
   cards.append(newCard);
 }
 
@@ -174,6 +207,11 @@ initialCards.forEach(createCard);
 
 formAddCard.addEventListener("submit", handleSubmitFormAddCard);
 
+const imageValue = formAddCard.querySelector(".popup__input-file");
+imageValue.addEventListener("change", () => {
+  let file = imageValue.files[0];
+  inputAddressFormAddCard.value = file.name;
+});
 function handleSubmitFormAddCard(event) {
   event.preventDefault();
   const image = inputAddressFormAddCard.value;
@@ -182,8 +220,31 @@ function handleSubmitFormAddCard(event) {
     link: image,
     name: headind,
   };
-  createCard(card);
+  const reader = new FileReader();
+  if (image.includes("http")) {
+    createCard(card);
+  }
+  if (image.includes("http") === false) {
+    reader.addEventListener(
+      "load",
+      () => {
+        // convert image file to base64 string
+        const image = reader.result;
+        const card = {
+          link: image,
+          name: `${headind}`,
+        };
+        createCard(card);
+      },
+      false
+    );
+    if (imageValue.files[0]) {
+      reader.readAsDataURL(imageValue.files[0]);
+    }
+  }
   closePopup(popupAddCard);
   inputAddressFormAddCard.value = "";
   inputHeadingFormAddCard.value = "";
+  imageValue.value = "";
+  console.log(cardsArr);
 }

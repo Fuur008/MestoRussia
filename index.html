@@ -65,8 +65,8 @@
     </button>
     <form name="profile_edit" class="popup__form popup__form_profile">
       <h2 class="popup__header">Редактировать профиль</h2>
-      <input type="text" name="user_name" class="popup__input popup__input-name" placeholder="Имя">
-      <input type="text" name="user_occupancy" class="popup__input popup__input-occupancy" placeholder="Занятие">
+      <input type="text" name="user_name" class="popup__input popup__input_name" placeholder="Имя">
+      <input type="text" name="user_occupancy" class="popup__input popup__input_occupancy" placeholder="Занятие">
       <button class="popup__save-button">
         <span class="visually-hidden">Кнопка сохранения формы</span>
         Сохранить
@@ -83,6 +83,7 @@
     <form name="profile_edit-image" class="popup__form popup__form_profile-image">
       <h2 class="popup__header">Редактировать аватар</h2>
       <input type="text" name="user_name" class="popup__input popup__input-address" placeholder="Адрес изображения">
+      <input type="file" name="user_name" class="popup__input-file">
       <button class="popup__save-button">
         <span class="visually-hidden">Кнопка сохранения формы</span>
         Сохранить
@@ -92,12 +93,16 @@
   </div>
 
   <div class="popup popup__full-image">
+    <div class="popup__swiper">
+      <button class="popup__slide-image_left"></button>
     <div class="popup__container">
     <button class="popup__close-button">
       <span class="visually-hidden">Кнопка закрытия Изображения</span>
     </button>
     <img src="#" alt="#" class="popup__image"></img>
     <h2 class="popup__heading"></h2>
+  </div>
+    <button class="popup__slide-image_right"></button>
   </div>
   </div>
 
@@ -108,8 +113,9 @@
     </button>
     <form name="add_card" class="popup__form popup__form_add-card">
       <h2 class="popup__header">Добавить место</h2>
-      <input type="text" name="user_name" class="popup__input popup__input-address" placeholder="Адрес изображения">
-      <input type="text" name="user_occupancy" class="popup__input popup__input-heading" placeholder="Заголовок">
+      <input type="text" name="card_image" class="popup__input popup__input-address" placeholder="Адрес изображения">
+      <input type="file" name="card_image-file" class="popup__input-file" accept="image">
+      <input type="text" name="card_heading" class="popup__input popup__input-heading" placeholder="Заголовок">
       <button class="popup__save-button">
         <span class="visually-hidden">Кнопка сохранения формы</span>
         Сохранить

@@ -8,7 +8,7 @@
 @media screen and (max-width: 660px) {
     .popup__form_profile-image {
         width: 282px;
-        height: 282px;
+        height: 260px;
         padding: 25px 22px;
     }
 }

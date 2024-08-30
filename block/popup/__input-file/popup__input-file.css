@@ -1,0 +1,33 @@
+.popup__input-file {
+    width: 117px;
+    z-index: 2;
+    color: transparent;
+    position: absolute;
+    top: 106px;
+    right: 38px;
+}
+
+.popup__input-file::file-selector-button{
+    height: 27px;
+    background-color: #000;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 4px;
+    transition: 0.3s;
+    border: none;
+}
+.popup__input-file::file-selector-button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 660px) {
+    .popup__input-file{
+        top: 116px;
+        right: 8px;
+    }
+    .popup__input-file::file-selector-button{
+        font-size: 12px;
+    }
+}
