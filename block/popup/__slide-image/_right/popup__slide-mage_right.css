@@ -16,7 +16,7 @@
   background-image: url(../../../../image/arrow-right.svg);
 }
 
-.popup__slide-image_right:disabled {
+.popup__slide-image_right-dis {
     background-image: url(../../../../image/arrow-right-gray.svg);
     pointer-events: none;
   }

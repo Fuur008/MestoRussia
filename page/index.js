@@ -209,14 +209,14 @@ function createCard(card) {
     const nextImageButton = document.querySelector(".popup__slide-image_right");
     function updateSlider() {
       if (currentSlide == slideCount - 1) {
-        nextImageButton.disabled = true;
+        nextImageButton.classList.add("popup__slide-image_right-dis");
       } else {
-        nextImageButton.disabled = false;
+        nextImageButton.classList.remove("popup__slide-image_right-dis");
       }
       if (currentSlide == 0) {
-        prevImageButton.disabled = true;
+        prevImageButton.classList.add("popup__slide-image_left-dis");
       } else {
-        prevImageButton.disabled = false;
+        prevImageButton.classList.remove("popup__slide-image_left-dis");
       }
     }
     nextImageButton.addEventListener("click", () => {
@@ -236,17 +236,14 @@ function createCard(card) {
       image.setAttribute("src", cardsArr[currentSlide].link);
       heading.textContent = cardsArr[currentSlide].name;
     });
-    popupImage.addEventListener("keydown", function (evt) {
+    const body = document.querySelector("body");
+    body.addEventListener("keydown", function (evt) {
       if (evt.key === "ArrowLeft" && currentSlide > 0) {
         currentSlide--;
         updateSlider();
-        console.log(currentSlide);
-        console.log(evt.key);
       } else if (evt.key === "ArrowRight" && currentSlide < slideCount - 1) {
         currentSlide++;
         updateSlider();
-        console.log(currentSlide);
-        console.log(evt.key);
       }
       image.setAttribute("src", cardsArr[currentSlide].link);
       heading.textContent = cardsArr[currentSlide].name;
