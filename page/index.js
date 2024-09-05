@@ -105,7 +105,6 @@ function formEditProfileImageSubmitHandler(evt) {
     reader.addEventListener(
       "load",
       () => {
-        // convert image file to base64 string
         imageEditButton.style.backgroundImage = `url(${reader.result})`;
       },
       false
@@ -160,6 +159,12 @@ function createCard(card) {
   const cardImage = newCard.querySelector(".element__image");
   cardImage.setAttribute("src", card.link);
   cardImage.setAttribute("alt", `${card.name}`);
+
+  function addId(i) {
+    for (i; i < cardsArr.length; i++) {}
+    return i;
+  }
+  cardImage.setAttribute("id", addId(0));
   const cardLikeButton = newCard.querySelector(".element__like-button");
   const likesCounter = newCard.querySelector(".element__likes");
   let counter = 0;
@@ -182,14 +187,71 @@ function createCard(card) {
   removeCardButton.addEventListener("click", (event) => {
     const button = event.target;
     const card = button.closest(".element");
+    const cardImages = card.querySelector(".element__image");
+    const id = cardImages.getAttribute("id");
     card.remove();
+    cardsArr.splice(id, 1);
+    const allImages = document.querySelectorAll(".element__image");
+    let i = 0;
+    allImages.forEach((item) => {
+      i++;
+      item.setAttribute("id", i - 1);
+    });
   });
+  const image = popupImage.querySelector(".popup__image");
+  const heading = popupImage.querySelector(".popup__heading");
   cardImage.addEventListener("click", (event) => {
-    const image = popupImage.querySelector(".popup__image");
-    const heading = popupImage.querySelector(".popup__heading");
     image.setAttribute("src", event.target.getAttribute("src"));
     heading.textContent = cardImage.getAttribute("alt");
     openPopup(popupImage);
+    let currentSlide = event.target.getAttribute("id");
+    const slideCount = cardsArr.length;
+    const nextImageButton = document.querySelector(".popup__slide-image_right");
+    function updateSlider() {
+      if (currentSlide == slideCount - 1) {
+        nextImageButton.disabled = true;
+      } else {
+        nextImageButton.disabled = false;
+      }
+      if (currentSlide == 0) {
+        prevImageButton.disabled = true;
+      } else {
+        prevImageButton.disabled = false;
+      }
+    }
+    nextImageButton.addEventListener("click", () => {
+      if (currentSlide < slideCount - 1) {
+        currentSlide++;
+        updateSlider();
+      }
+      image.setAttribute("src", cardsArr[currentSlide].link);
+      heading.textContent = cardsArr[currentSlide].name;
+    });
+    const prevImageButton = document.querySelector(".popup__slide-image_left");
+    prevImageButton.addEventListener("click", () => {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlider();
+      }
+      image.setAttribute("src", cardsArr[currentSlide].link);
+      heading.textContent = cardsArr[currentSlide].name;
+    });
+    popupImage.addEventListener("keydown", function (evt) {
+      if (evt.key === "ArrowLeft" && currentSlide > 0) {
+        currentSlide--;
+        updateSlider();
+        console.log(currentSlide);
+        console.log(evt.key);
+      } else if (evt.key === "ArrowRight" && currentSlide < slideCount - 1) {
+        currentSlide++;
+        updateSlider();
+        console.log(currentSlide);
+        console.log(evt.key);
+      }
+      image.setAttribute("src", cardsArr[currentSlide].link);
+      heading.textContent = cardsArr[currentSlide].name;
+    });
+    updateSlider();
   });
   popupCloseImageButton.addEventListener("click", () => {
     closePopup(popupImage);
@@ -201,6 +263,7 @@ function createCard(card) {
     }
   };
   cards.append(newCard);
+  cardsArr.push(card);
 }
 
 initialCards.forEach(createCard);
@@ -228,7 +291,6 @@ function handleSubmitFormAddCard(event) {
     reader.addEventListener(
       "load",
       () => {
-        // convert image file to base64 string
         const image = reader.result;
         const card = {
           link: image,
@@ -246,5 +308,4 @@ function handleSubmitFormAddCard(event) {
   inputAddressFormAddCard.value = "";
   inputHeadingFormAddCard.value = "";
   imageValue.value = "";
-  console.log(cardsArr);
 }

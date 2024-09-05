@@ -1,0 +1,22 @@
+.popup__slide-image_right {
+  width: 72px;
+  height: 72px;
+  transform: translateY(-26px);
+  border: none;
+  background-image: url(../../../../image/arrow-right-stroke.svg);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+.popup__slide-image_right:hover {
+  cursor: pointer;
+  background-image: url(../../../../image/arrow-right.svg);
+}
+
+.popup__slide-image_right:disabled {
+    background-image: url(../../../../image/arrow-right-gray.svg);
+    pointer-events: none;
+  }
