@@ -1,4 +1,5 @@
 "use strict";
+const body = document.querySelector("body");
 const profileEditButton = document.querySelector(".profile__edit-button");
 const imageEditButton = document.querySelector(".profile__image-button");
 const addCardButton = document.querySelector(".profile__add-button");
@@ -236,7 +237,6 @@ function createCard(card) {
       image.setAttribute("src", cardsArr[currentSlide].link);
       heading.textContent = cardsArr[currentSlide].name;
     });
-    const body = document.querySelector("body");
     body.addEventListener("keydown", function (evt) {
       if (evt.key === "ArrowLeft" && currentSlide > 0) {
         currentSlide--;
@@ -247,6 +247,29 @@ function createCard(card) {
       }
       image.setAttribute("src", cardsArr[currentSlide].link);
       heading.textContent = cardsArr[currentSlide].name;
+    });
+
+    let touchstartX = 0;
+    let touchendX = 0;
+    function checkDirection() {
+      let left = touchendX < touchstartX;
+      let right = touchendX > touchstartX;
+      if (left && currentSlide < slideCount - 1) {
+        currentSlide++;
+      } else if (right && currentSlide > 0) {
+        currentSlide--;
+      }
+      image.setAttribute("src", cardsArr[currentSlide].link);
+      heading.textContent = cardsArr[currentSlide].name;
+    }
+
+    popupImage.addEventListener("touchstart", (e) => {
+      touchstartX = e.changedTouches[0].screenX;
+    });
+
+    popupImage.addEventListener("touchend", (e) => {
+      touchendX = e.changedTouches[0].screenX;
+      checkDirection();
     });
     updateSlider();
   });
