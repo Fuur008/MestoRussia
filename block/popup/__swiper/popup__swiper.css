@@ -1,7 +1,14 @@
 .popup__swiper {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    min-width: 60vw;
-    height: 75vh;
+    justify-content: center;
+    min-width: 75vw;
+    min-height: 80vh;
+    position: relative;
+}
+
+@media screen and (max-width: 660px) {
+    .popup__swiper{
+        transform: translateX(-13px);
+    }
 }
