@@ -1,5 +1,5 @@
 "use strict";
-const body = document.querySelector("body");
+const page = document.querySelector(".page");
 const profileEditButton = document.querySelector(".profile__edit-button");
 const imageEditButton = document.querySelector(".profile__image-button");
 const addCardButton = document.querySelector(".profile__add-button");
@@ -41,6 +41,7 @@ const inputHeadingFormAddCard = formAddCard.querySelector(
 );
 const popupClose = document.querySelector(".popup");
 const cardsArr = [];
+const radioButtonArr = [];
 
 function openPopup(edidPopup) {
   edidPopup.classList.add("popup_opened");
@@ -184,27 +185,41 @@ function createCard(card) {
     }
   });
   const render = (counter, likesCounter) => (likesCounter.innerText = counter);
+
   const removeCardButton = newCard.querySelector(".element__delete-button");
   removeCardButton.addEventListener("click", (event) => {
     const button = event.target;
     const card = button.closest(".element");
     const cardImages = card.querySelector(".element__image");
-    const id = cardImages.getAttribute("id");
+    const idCardImage = cardImages.getAttribute("id");
+    const radioButton = document.getElementById("btn id " + `${idCardImage}`);
+    cardsArr.splice(idCardImage, 1);
+    radioButtonArr.splice(idCardImage, 1);
     card.remove();
-    cardsArr.splice(id, 1);
+    radioButton.remove();
     const allImages = document.querySelectorAll(".element__image");
     let i = 0;
     allImages.forEach((item) => {
       i++;
       item.setAttribute("id", i - 1);
     });
+    console.log(cardsArr);
+
+    const allRadioButton = document.querySelectorAll(".button-radio");
+    let j = 0;
+    allRadioButton.forEach((item) => {
+      j++;
+      item.setAttribute("id", "btn id " + (j - 1));
+    });
   });
   const image = popupImage.querySelector(".popup__image");
   const heading = popupImage.querySelector(".popup__heading");
-  cardImage.addEventListener("click", (event) => {
+  function handleMouseClick(event) {
+    event.stopPropagation();
     image.setAttribute("src", event.target.getAttribute("src"));
+    image.setAttribute("alt", event.target.getAttribute("alt"));
+    image.setAttribute("id", event.target.getAttribute("id"));
     heading.textContent = cardImage.getAttribute("alt");
-    openPopup(popupImage);
     let currentSlide = event.target.getAttribute("id");
     const slideCount = cardsArr.length;
     const nextImageButton = document.querySelector(".popup__slide-image_right");
@@ -219,35 +234,50 @@ function createCard(card) {
       } else {
         prevImageButton.classList.remove("popup__slide-image_left-dis");
       }
+      radioButtons.forEach((button, index) => {
+        if (index === currentSlide) {
+          button.classList.add("button-radio_active");
+        } else {
+          button.classList.remove("button-radio_active");
+        }
+      });
     }
-    nextImageButton.addEventListener("click", () => {
+    nextImageButton.addEventListener("click", (event) => {
+      event.stopPropagation();
       if (currentSlide < slideCount - 1) {
         currentSlide++;
+        image.setAttribute("src", cardsArr[currentSlide].link);
+        heading.textContent = cardsArr[currentSlide].name;
         updateSlider();
       }
-      image.setAttribute("src", cardsArr[currentSlide].link);
-      heading.textContent = cardsArr[currentSlide].name;
     });
     const prevImageButton = document.querySelector(".popup__slide-image_left");
-    prevImageButton.addEventListener("click", () => {
+    prevImageButton.addEventListener("click", (event) => {
+      event.stopPropagation();
       if (currentSlide > 0) {
         currentSlide--;
+        image.setAttribute("src", cardsArr[currentSlide].link);
+        heading.textContent = cardsArr[currentSlide].name;
         updateSlider();
       }
-      image.setAttribute("src", cardsArr[currentSlide].link);
-      heading.textContent = cardsArr[currentSlide].name;
     });
-    body.addEventListener("keydown", function (evt) {
-      if (evt.key === "ArrowLeft" && currentSlide > 0) {
-        currentSlide--;
-        updateSlider();
-      } else if (evt.key === "ArrowRight" && currentSlide < slideCount - 1) {
+    function arrowKey(evt) {
+      evt.stopPropagation();
+      if (evt.key === "ArrowRight" && currentSlide < slideCount - 1) {
         currentSlide++;
-        updateSlider();
+        console.log(currentSlide);
+        console.log(
+          nextImageButton.classList.contains("popup__slide-image_right-dis")
+        );
+      } else if (evt.key === "ArrowLeft" && currentSlide > 0) {
+        currentSlide--;
+        console.log(currentSlide);
       }
       image.setAttribute("src", cardsArr[currentSlide].link);
       heading.textContent = cardsArr[currentSlide].name;
-    });
+      updateSlider();
+    }
+    page.addEventListener("keydown", arrowKey);
 
     let touchstartX = 0;
     let touchendX = 0;
@@ -256,23 +286,52 @@ function createCard(card) {
       let right = touchendX > touchstartX;
       if (left && currentSlide < slideCount - 1) {
         currentSlide++;
+        updateSlider();
+        image.setAttribute("src", cardsArr[currentSlide].link);
+        heading.textContent = cardsArr[currentSlide].name;
       } else if (right && currentSlide > 0) {
         currentSlide--;
+        updateSlider();
+        image.setAttribute("src", cardsArr[currentSlide].link);
+        heading.textContent = cardsArr[currentSlide].name;
       }
-      image.setAttribute("src", cardsArr[currentSlide].link);
-      heading.textContent = cardsArr[currentSlide].name;
     }
 
     popupImage.addEventListener("touchstart", (e) => {
+      e.stopPropagation();
       touchstartX = e.changedTouches[0].screenX;
     });
 
     popupImage.addEventListener("touchend", (e) => {
+      e.stopPropagation();
       touchendX = e.changedTouches[0].screenX;
       checkDirection();
     });
+    const radioButtons = document.querySelectorAll(".button-radio");
+    radioButtons.forEach((button, index) => {
+      // console.log(button.getAttribute("id"));
+      // console.log(`btn id ${image.getAttribute("id")}`);
+      if (button.getAttribute("id") == `btn id ${image.getAttribute("id")}`) {
+        button.classList.add("button-radio_active");
+      }
+      button.addEventListener("click", () => {
+        if (index < slideCount) {
+          currentSlide = index;
+        }
+        updateSlider();
+        image.setAttribute("src", cardsArr[currentSlide].link);
+        heading.textContent = cardsArr[currentSlide].name;
+      });
+    });
+    openPopup(popupImage);
     updateSlider();
-  });
+    const radioButton = document.getElementById(
+      `btn id ${image.getAttribute("id")}`
+    );
+    radioButton.classList.add("button-radio_active");
+  }
+  cardImage.addEventListener("click", handleMouseClick);
+
   popupCloseImageButton.addEventListener("click", () => {
     closePopup(popupImage);
   });
@@ -287,6 +346,22 @@ function createCard(card) {
 }
 
 initialCards.forEach(createCard);
+
+function createRadioButton(button) {
+  const newRadioButton = document
+    .querySelector(".template__radio-button")
+    .content.cloneNode(true);
+  const radioButton = newRadioButton.querySelector(".button-radio");
+  const radioButtonsContainer = document.querySelector(".popup__radio-buttons");
+  function addId(i) {
+    for (i; i < radioButtonArr.length; i++) {}
+    return "btn id " + i;
+  }
+  radioButton.setAttribute("id", addId(0));
+  radioButtonsContainer.append(newRadioButton);
+  radioButtonArr.push(button);
+}
+cardsArr.forEach(createRadioButton);
 
 formAddCard.addEventListener("submit", handleSubmitFormAddCard);
 
@@ -306,6 +381,7 @@ function handleSubmitFormAddCard(event) {
   const reader = new FileReader();
   if (image.includes("http")) {
     createCard(card);
+    createRadioButton(card);
   }
   if (image.includes("http") === false) {
     reader.addEventListener(
@@ -317,6 +393,7 @@ function handleSubmitFormAddCard(event) {
           name: `${headind}`,
         };
         createCard(card);
+        createRadioButton(card);
       },
       false
     );

@@ -1,0 +1,4 @@
+.popup__container_aling {
+    display: flex;
+    flex-direction: column;
+}

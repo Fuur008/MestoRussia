@@ -1,0 +1,11 @@
+.popup__radio-buttons {
+    height: 22px;
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 15px;
+    z-index: 2;
+}

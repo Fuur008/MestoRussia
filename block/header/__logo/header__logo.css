@@ -19,12 +19,14 @@
 }
 @media screen and (max-width: 660px) {
     .header__logo {
-        transform: translateX(27px);
+        width: calc(100% - 27px);
+        margin-left: 27px;
         max-height: 25px;
         background-image: url(../../../image/logo_small.svg);
     }
     .header__logo::after{
         left: -27px;
         bottom: -32px;
+        max-width: 660px;
     }
 }
