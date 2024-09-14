@@ -203,8 +203,6 @@ function createCard(card) {
       i++;
       item.setAttribute("id", i - 1);
     });
-    console.log(cardsArr);
-
     const allRadioButton = document.querySelectorAll(".button-radio");
     let j = 0;
     allRadioButton.forEach((item) => {
@@ -223,6 +221,7 @@ function createCard(card) {
     let currentSlide = event.target.getAttribute("id");
     const slideCount = cardsArr.length;
     const nextImageButton = document.querySelector(".popup__slide-image_right");
+    const prevImageButton = document.querySelector(".popup__slide-image_left");
     function updateSlider() {
       if (currentSlide == slideCount - 1) {
         nextImageButton.classList.add("popup__slide-image_right-dis");
@@ -242,7 +241,7 @@ function createCard(card) {
         }
       });
     }
-    nextImageButton.addEventListener("click", (event) => {
+    function next(event) {
       event.stopPropagation();
       if (currentSlide < slideCount - 1) {
         currentSlide++;
@@ -250,9 +249,8 @@ function createCard(card) {
         heading.textContent = cardsArr[currentSlide].name;
         updateSlider();
       }
-    });
-    const prevImageButton = document.querySelector(".popup__slide-image_left");
-    prevImageButton.addEventListener("click", (event) => {
+    }
+    function previous(event) {
       event.stopPropagation();
       if (currentSlide > 0) {
         currentSlide--;
@@ -260,30 +258,12 @@ function createCard(card) {
         heading.textContent = cardsArr[currentSlide].name;
         updateSlider();
       }
-    });
-    function arrowKey(evt) {
-      evt.stopPropagation();
-      if (evt.key === "ArrowRight" && currentSlide < slideCount - 1) {
-        currentSlide++;
-        console.log(currentSlide);
-        console.log(
-          nextImageButton.classList.contains("popup__slide-image_right-dis")
-        );
-      } else if (evt.key === "ArrowLeft" && currentSlide > 0) {
-        currentSlide--;
-        console.log(currentSlide);
-      }
-      image.setAttribute("src", cardsArr[currentSlide].link);
-      heading.textContent = cardsArr[currentSlide].name;
-      updateSlider();
     }
-    page.addEventListener("keydown", arrowKey);
-
     let touchstartX = 0;
     let touchendX = 0;
     function checkDirection() {
-      let left = touchendX < touchstartX;
-      let right = touchendX > touchstartX;
+      let left = touchendX + 80 < touchstartX;
+      let right = touchendX > touchstartX + 80;
       if (left && currentSlide < slideCount - 1) {
         currentSlide++;
         updateSlider();
@@ -296,32 +276,55 @@ function createCard(card) {
         heading.textContent = cardsArr[currentSlide].name;
       }
     }
-
-    popupImage.addEventListener("touchstart", (e) => {
+    function arrowKey(evt) {
+      evt.stopPropagation();
+      if (evt.key === "ArrowRight" && currentSlide < slideCount - 1) {
+        currentSlide++;
+      } else if (evt.key === "ArrowLeft" && currentSlide > 0) {
+        currentSlide--;
+      }
+      image.setAttribute("src", cardsArr[currentSlide].link);
+      heading.textContent = cardsArr[currentSlide].name;
+      updateSlider();
+    }
+    page.addEventListener("keydown", arrowKey);
+    function touchstart(e) {
       e.stopPropagation();
       touchstartX = e.changedTouches[0].screenX;
-    });
-
-    popupImage.addEventListener("touchend", (e) => {
+    }
+    function touchend(e) {
       e.stopPropagation();
       touchendX = e.changedTouches[0].screenX;
       checkDirection();
-    });
+    }
+
+    nextImageButton.addEventListener("click", next);
+    prevImageButton.addEventListener("click", previous);
+    popupImage.addEventListener("touchstart", touchstart);
+    popupImage.addEventListener("touchend", touchend);
     const radioButtons = document.querySelectorAll(".button-radio");
     radioButtons.forEach((button, index) => {
-      // console.log(button.getAttribute("id"));
-      // console.log(`btn id ${image.getAttribute("id")}`);
       if (button.getAttribute("id") == `btn id ${image.getAttribute("id")}`) {
         button.classList.add("button-radio_active");
       }
-      button.addEventListener("click", () => {
+      function clickRadioBtn() {
         if (index < slideCount) {
           currentSlide = index;
         }
         updateSlider();
         image.setAttribute("src", cardsArr[currentSlide].link);
         heading.textContent = cardsArr[currentSlide].name;
+      }
+      button.addEventListener("click", clickRadioBtn);
+      popupCloseImageButton.addEventListener("click", () => {
+        button.removeEventListener("click", clickRadioBtn);
       });
+      popupImage.onclick = function (e) {
+        const target = e.target.classList.contains("popup");
+        if (target === true) {
+          button.removeEventListener("click", clickRadioBtn);
+        }
+      };
     });
     openPopup(popupImage);
     updateSlider();
@@ -329,18 +332,28 @@ function createCard(card) {
       `btn id ${image.getAttribute("id")}`
     );
     radioButton.classList.add("button-radio_active");
+    popupCloseImageButton.addEventListener("click", () => {
+      closePopup(popupImage);
+      page.removeEventListener("keydown", arrowKey);
+      nextImageButton.removeEventListener("click", next);
+      prevImageButton.removeEventListener("click", previous);
+      popupImage.removeEventListener("touchstart", touchstart);
+      popupImage.removeEventListener("touchend", touchend);
+    });
+    popupImage.onclick = function (e) {
+      const target = e.target.classList.contains("popup");
+      if (target === true) {
+        closePopup(popupImage);
+        page.removeEventListener("keydown", arrowKey);
+        nextImageButton.removeEventListener("click", next);
+        prevImageButton.removeEventListener("click", previous);
+        popupImage.removeEventListener("touchstart", touchstart);
+        popupImage.removeEventListener("touchend", touchend);
+      }
+    };
   }
   cardImage.addEventListener("click", handleMouseClick);
 
-  popupCloseImageButton.addEventListener("click", () => {
-    closePopup(popupImage);
-  });
-  popupImage.onclick = function (e) {
-    const target = e.target.classList.contains("popup");
-    if (target === true) {
-      closePopup(popupImage);
-    }
-  };
   cards.append(newCard);
   cardsArr.push(card);
 }

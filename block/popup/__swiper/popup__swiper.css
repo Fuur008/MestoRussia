@@ -2,7 +2,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 70vw;
-    min-height: 75vh;
+    width: 70vw;
+    height: 75vh;
     position: relative;
+}
+@media screen and (max-width: 660px) {
+    .popup__swiper {
+    width: 300px;
+    height: 430px;
+    }
 }
