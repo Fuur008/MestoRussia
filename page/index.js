@@ -241,12 +241,19 @@ function createCard(card) {
         }
       });
     }
+    function sladerAnimation() {
+      image.classList.remove("popup__image_unpaused");
+      heading.classList.remove("popup__heading_unpaused");
+    }
     function next(event) {
       event.stopPropagation();
       if (currentSlide < slideCount - 1) {
         currentSlide++;
         image.setAttribute("src", cardsArr[currentSlide].link);
         heading.textContent = cardsArr[currentSlide].name;
+        image.classList.add("popup__image_unpaused");
+        heading.classList.add("popup__heading_unpaused");
+        setTimeout(sladerAnimation, 450);
         updateSlider();
       }
     }
@@ -256,6 +263,9 @@ function createCard(card) {
         currentSlide--;
         image.setAttribute("src", cardsArr[currentSlide].link);
         heading.textContent = cardsArr[currentSlide].name;
+        image.classList.add("popup__image_unpaused");
+        heading.classList.add("popup__heading_unpaused");
+        setTimeout(sladerAnimation, 450);
         updateSlider();
       }
     }
@@ -266,22 +276,35 @@ function createCard(card) {
       let right = touchendX > touchstartX + 80;
       if (left && currentSlide < slideCount - 1) {
         currentSlide++;
-        updateSlider();
         image.setAttribute("src", cardsArr[currentSlide].link);
         heading.textContent = cardsArr[currentSlide].name;
+        image.classList.add("popup__image_unpaused");
+        heading.classList.add("popup__heading_unpaused");
+        setTimeout(sladerAnimation, 450);
+        updateSlider();
       } else if (right && currentSlide > 0) {
         currentSlide--;
         updateSlider();
         image.setAttribute("src", cardsArr[currentSlide].link);
         heading.textContent = cardsArr[currentSlide].name;
+        image.classList.add("popup__image_unpaused");
+        heading.classList.add("popup__heading_unpaused");
+        setTimeout(sladerAnimation, 450);
+        updateSlider();
       }
     }
     function arrowKey(evt) {
       evt.stopPropagation();
       if (evt.key === "ArrowRight" && currentSlide < slideCount - 1) {
         currentSlide++;
+        image.classList.add("popup__image_unpaused");
+        heading.classList.add("popup__heading_unpaused");
+        setTimeout(sladerAnimation, 450);
       } else if (evt.key === "ArrowLeft" && currentSlide > 0) {
         currentSlide--;
+        image.classList.add("popup__image_unpaused");
+        heading.classList.add("popup__heading_unpaused");
+        setTimeout(sladerAnimation, 450);
       }
       image.setAttribute("src", cardsArr[currentSlide].link);
       heading.textContent = cardsArr[currentSlide].name;
@@ -310,6 +333,9 @@ function createCard(card) {
       function clickRadioBtn() {
         if (index < slideCount) {
           currentSlide = index;
+          image.classList.add("popup__image_unpaused");
+          heading.classList.add("popup__heading_unpaused");
+          setTimeout(sladerAnimation, 450);
         }
         updateSlider();
         image.setAttribute("src", cardsArr[currentSlide].link);

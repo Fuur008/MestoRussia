@@ -5,3 +5,10 @@
     color: #fff;
     align-self: start;
 }
+.popup__heading_unpaused {
+    animation-name: from_image_to_none;
+    animation-duration: 0.4s;
+    animation-direction: reverse;
+    animation-timing-function: ease-in;
+    animation-iteration-count: 1;
+}
